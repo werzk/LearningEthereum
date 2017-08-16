@@ -4,4 +4,8 @@
 ( * 2 2)
 
 (defun square (x)
-	   (* x x))
+  (* x x))
+
+
+ (defun triple (x)
+	  (* x x x))
