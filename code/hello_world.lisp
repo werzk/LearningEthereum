@@ -46,3 +46,32 @@
 (atom x)
 '(+ 1 2)
 (defparameter x (+ 3 5))
+(defun dumb-db ()
+  (format t "~{~{~a:10t~%~}~%~}" *db*))
+(defun prompt-read (prompt)
+	   (format *query-io* "~a: " prompt)
+	   (force-output *query-io*)
+	   (read-line *query-io*))
+(defun prompt-for-cd ()
+	   (make-cd
+	    (prompt-read "Title")
+	    (prompt-read "Artist")
+	    (prompt-read "Rating")
+	    (prompt-read "Ripped [y/n]")))
+(parse-integer (prompt-read "Rating") :junk-allowed t)
+(or (parse-integer (prompt-read "Rating") :junk-allowed t) 0)
+(defun prompt-for-cd ()
+	   (make-cd
+	    (prompt-read "Title")
+	    (prompt-read "Artist")
+	    (or (parse-integer (prompt-read "Rating") :junk-allowed t) 0)
+	    (y-or-n-p "Ripped [y/n]")))
+(defun add-cds ()
+	   (loop (add-record (prompt-for-cd))
+	      (if (not (y-or-n-p "Another? [y/n]: ")) (return))))
+(defun save-db (filename)
+	   (with-open-file (out filename
+				:direction :output
+				:if-exists :supersede)
+	     (with-standard-io-syntax
+	       (print *db* out))))
