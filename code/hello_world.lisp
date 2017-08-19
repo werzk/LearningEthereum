@@ -58,8 +58,8 @@
 	    (prompt-read "Artist")
 	    (prompt-read "Rating")
 	    (prompt-read "Ripped [y/n]")))
-(parse-integer (prompt-read "Rating") :junk-allowed t)
-(or (parse-integer (prompt-read "Rating") :junk-allowed t) 0)
+;(parse-integer (prompt-read "Rating") :junk-allowed t)
+;(or (parse-integer (prompt-read "Rating") :junk-allowed t) 0)
 (defun prompt-for-cd ()
 	   (make-cd
 	    (prompt-read "Title")
@@ -93,7 +93,7 @@
 	    *db*))
 (defun select (selector-fn)
   (remove-if-not selector-fn *db*))
-(select #'(lambda (cd) (equal (getf cd :artist) "migos")))
+;(select #'(lambda (cd) (equal (getf cd :artist) "migos")))
 (defun artist-selector (artist)
   #'(lambda (cd) (equal (getf cd :artist) artist)))
 (defun foo (a b c) (list a b c))
@@ -138,15 +138,23 @@
 (defmacro backwards (expr) (reverse expr))(backwards ("hello, world" t format))
 (defun make-comparison-expr (field value)
   (list 'equal (list 'getf 'cd field) value))
-(make-comparison-expr :rating 10)
+;(make-comparison-expr :rating 10)
 '(1 2 (+ 1 2))
 (defun make-comparisons-list (fields)
 	   (loop while fields
 		collecting (make-comparison-expr (pop fields) (pop fields))))
 (defmacro where (&rest clauses)
   ` #'(lambda (cd) (and ,@(make-comparisons-list clauses))))
-(and ,(list 1 2 3))`(and ,(list 1 2 3))
+
+`(and ,(list 1 2 3))
 (symbolp #'square)
 (where :title "migos" :ripped t)
 (macroexpand-1 '(where :title "culture" :title t))
-(select (where :title "culture" :ripped t))
+;(select (where :title "culture" :ripped t))
+
+;;REPL: Read Evaluate Print Loop
+
+(defun zuriels-programming-language ()
+  (format t "~&zuriels-repl> ")
+  (print (eval (read)))
+  (zuriels-programming-language))
