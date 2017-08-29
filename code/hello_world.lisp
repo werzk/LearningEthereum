@@ -474,3 +474,24 @@
 (setf (subseq *x* 3 6) "xxx") ;subsequence new value are same lenght *x*
 (setf (subseq *x* 3 6) "abcd") ;subsequence new value too long, extra character ignored
 (setf (subseq *x* 3 6) "xx") ;subsequence new value too short, only two characters
+;;(position #/b "foobarbaz")
+(search "bar" "foobarbaz")
+(mismatch "foobarbaz" "foom")
+(every #'evenp #(1 2 3 4 5))
+(some #'evenp #(1 2 3 4 5))
+(notany #'evenp #(1 2 3 4 5))
+(notevery #'evenp #(1 2 3 4 5))
+(every #'> #(1 2 3 4) #(5 4 3 2))
+(some #'> #(1 2 3 4) #(5 4 3 2))
+(notany #'> #(1 2 3 4) #(5 4 3 2))
+(notevery #'> #(1 2 3 4) #(5 4 3 2))
+(map 'vector #'* #(1 2 3 4 5) #(10 9 8 7 6))
+(reduce #'+ #(1 2 3 4 5 6 7 8 9 10))
+(defun show-value (key hash-table)
+	   (multiple-valued-bind (value present) (gethash key hash-table)
+				 (if present
+				     (format nil "value  ~a actually present.")
+				     (format nil "value ~a because key not found." value))))
+;;(setf (gethash 'bar *h*) nil) ; provide an explicit value of nil
+;;(maphash #'(lambda (k v) (format t "~a => ~a~%" k v)) *h*)
+;;(maphash #'(lambda (k v) (format t "~a => ~a~%" k v)) *h*)
