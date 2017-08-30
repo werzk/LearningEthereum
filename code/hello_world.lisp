@@ -534,3 +534,4 @@
 (mapcar #'(lambda (x) (* 2 x)) (list 1 2 3))
 (mapcar #'(lambda (x) (* 2 x)) (list 10 20 30))
 (mapcar #'+(list 1 2 3) (list 10 20 30))
+;;code
